@@ -112,39 +112,4 @@ curl -sS http://localhost:5000/api/students | jq .
 
   Update / Delete: use the corresponding PUT/DELETE endpoints as usual.
 
-  ## Security note — configuration and secrets
-  I noticed a concern about `appsettings.json` containing a password. Storing credentials in a committed file is not secure. Recommended practices:
-
-  1. Rotate the exposed password immediately (if it was committed). For a local Azure SQL Edge container you can change the SA password via `sqlcmd` or recreate the container with a new `SA_PASSWORD`.
-
-  2. Remove the committed secrets from the repository and stop committing credentials:
-
-  ```bash
-  git rm --cached backend/appsettings.json
-  echo "backend/appsettings.json" >> .gitignore
-  git add .gitignore
-  git commit -m "Remove sensitive config from repo and ignore it"
-  ```
-
-  3. Use environment variables for connection strings locally (example above). For development, `dotnet user-secrets` is useful; for production use the platform's secret store (Azure App Service settings or Azure Key Vault).
-
-  4. Update `backend/appsettings.json` in the repository to a template (no secrets) or add `backend/appsettings.json.example` with placeholders and do not commit real credentials.
-
-  If you want, I can:
-  - create `backend/appsettings.json.example` with a placeholder connection string, and
-  - remove the real `backend/appsettings.json` from the repo (and add it to `.gitignore`) and provide the exact commands to rotate the SA password in your running container.
-
-  ## Why seeds are useful
-  Seed scripts (optional) speed up manual verification for reviewers: they insert a few sample rows so the UI shows real data immediately. Seeds should be idempotent (so they can be re-run safely).
-
-  ## Next recommended steps (I can implement any of these)
-  - Add an idempotent `database/seed.sql` that inserts 2–3 example students.
-  - Replace `backend/appsettings.json` with `backend/appsettings.json.example` and remove secrets from Git history.
-  - Add 2 backend tests (unit + integration) to validate input rules and CRUD happy path.
-
-  If you want me to make the README changes above permanent (I updated it already) and add a seed file and `appsettings.json.example`, tell me which to do first — I can add the seed script and the example settings now and show the exact git commands to remove sensitive data from the repo and rotate the password.
-```
-
-
-
----
+ 

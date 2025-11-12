@@ -86,57 +86,95 @@ export default function Students() {
   }
 
   return (
-    <div style={{ padding: 16 }}>
-      <h2>Students</h2>
+    <div className="students-page" style={{ padding: 24 }}>
+      <div className="students-header">
+        <h2>Students</h2>
+      </div>
 
-      <section style={{ marginBottom: 18 }}>
+  <section className="form-section" style={{ marginBottom: 18 }}>
         <h3>{idEditing ? 'Edit student' : 'Add new student'}</h3>
-        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))' }}>
-          <input placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} />
-          <input placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} />
-          <input placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-          <input placeholder="Date of birth" type="date" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)} />
-          <div style={{ gridColumn: '1 / -1', display: 'flex', gap: 8 }}>
-            <button type="submit">{idEditing ? 'Save' : 'Add'}</button>
-            <button type="button" onClick={resetForm}>Cancel</button>
+        <form onSubmit={handleSubmit} className="student-form" aria-label="Add or edit student">
+          <div className="form-grid">
+            <input className="input" placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} />
+            <input className="input" placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} />
+            <input className="input" placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+            <input className="input" placeholder="Date of birth" type="date" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)} />
+          </div>
+          <div className="form-actions">
+            <button className="btn primary" type="submit">{idEditing ? 'Save' : 'Add'}</button>
+            <button className="btn ghost" type="button" onClick={resetForm}>Cancel</button>
           </div>
         </form>
         {error && <div style={{ color: 'crimson', marginTop: 8 }}>{error}</div>}
       </section>
 
-      <section>
-        <h3>Student list</h3>
+      <section className="table-section">
+        <h3 className="visually-hidden">Student list</h3>
         {loading ? (
-          <div>Loading…</div>
+          <div className="loading">Loading…</div>
         ) : (
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: 'left', padding: 8 }}>Name</th>
-                <th style={{ textAlign: 'left', padding: 8 }}>Email</th>
-                <th style={{ textAlign: 'left', padding: 8 }}>DOB</th>
-                <th style={{ textAlign: 'right', padding: 8 }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.length === 0 && (
+          <div className="table-card">
+            <table className="students-table">
+              <thead>
                 <tr>
-                  <td colSpan={4} style={{ padding: 12 }}>No students yet</td>
+                  <th>First Name</th>
+                  <th>Email</th>
+                  <th>Birthday</th>
+                  <th style={{ textAlign: 'center' }}>Actions</th>
                 </tr>
-              )}
-              {students.map(s => (
-                <tr key={s.id} style={{ borderTop: '1px solid #eee' }}>
-                  <td style={{ padding: 8 }}>{s.firstName} {s.lastName}</td>
-                  <td style={{ padding: 8 }}>{s.email}</td>
-                  <td style={{ padding: 8 }}>{new Date(s.dateOfBirth).toLocaleDateString()}</td>
-                  <td style={{ padding: 8, textAlign: 'right' }}>
-                    <button onClick={() => startEdit(s)} style={{ marginRight: 8 }}>Edit</button>
-                    <button onClick={() => handleDelete(s.id)}>Delete</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {students.length === 0 ? (
+                  /* show a sample row when there is no data */
+                  <tr className="sample-row">
+                    <td>Alice Johnson</td>
+                    <td>alice.j@example.com</td>
+                    <td>1998-05-15</td>
+                    <td style={{ textAlign: 'center' }}>
+                      <span className="icon" title="Edit">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                      <span className="icon delete" title="Delete">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 6h18" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M10 11v6M14 11v6" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                    </td>
+                  </tr>
+                ) : (
+                  students.map(s => (
+                    <tr key={s.id}>
+                      <td>{s.firstName} {s.lastName}</td>
+                      <td>{s.email}</td>
+                      <td>{new Date(s.dateOfBirth).toLocaleDateString()}</td>
+                      <td style={{ textAlign: 'center' }}>
+                        <button className="icon-btn" onClick={() => startEdit(s)} aria-label="Edit">
+                          {/* neo‑brutalist edit icon (thinner strokes) */}
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                        <button className="icon-btn" onClick={() => handleDelete(s.id)} aria-label="Delete">
+                          {/* neo‑brutalist delete icon (thinner strokes) */}
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6h18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10 11v6M14 11v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </section>
     </div>

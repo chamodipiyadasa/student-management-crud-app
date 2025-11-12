@@ -27,7 +27,7 @@ export default function Login() {
         <div className="window-body">
           <div className="left-panel">
             <div className="chat-box">
-              <div className="chat-line">Welcome to Student Management App :)</div>
+              <div className="chat-line">Welcome to Student Management App !</div>
               <div className="chat-line muted">Please sign in to continue</div>
             </div>
             <div className="decor small-stars">

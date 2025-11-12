@@ -170,18 +170,4 @@ curl -sS http://localhost:5000/api/students | jq .
 
   ## Deployment notes
 
-  - Frontend: deployed to Vercel (live demo above). On Vercel set `VITE_API_BASE_URL` to your backend production URL (e.g. `https://<your-backend>.azurewebsites.net/api`) in Project → Settings → Environment Variables.
-  - Backend: host on Azure App Service or any .NET-capable host. Example Azure steps (create resource group, app service, set app settings for connection string, deploy using `az webapp deploy` or GitHub Actions).
-
-
-  
-
-  Remove tracked config example
-  ```bash
-  git rm --cached backend/appsettings.json
-  echo "backend/appsettings.json" >> .gitignore
-  git add .gitignore
-  git commit -m "Remove sensitive config from repo and ignore it"
-  ```
-
-  
+ 

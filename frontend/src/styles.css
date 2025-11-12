@@ -1,0 +1,95 @@
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  padding: 12px;
+}
+
+h1, h2 {
+  color: #111827;
+}
+
+:root{
+  --bg:#f4ecdb; /* light beige */
+  --accent-1:#f7c8d5; /* muted pink */
+  --accent-2:#d6c1ff; /* muted purple */
+  --accent-3:#c6f7e2; /* mint */
+  --ink:#0b0b0b;
+}
+
+  /* Base */
+  html,body,#root{height:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    color:var(--ink);
+  }
+
+  .retro-bg{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:36px;
+  }
+
+  .retro-window{
+    width:880px;
+    max-width:95vw;
+    border:8px solid #000; /* thick black outline */
+    background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+    box-shadow:14px 14px 0 rgba(0,0,0,0.06);
+  }
+
+  .address-bar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 12px;
+    background:var(--accent-1);
+    border-bottom:6px solid #000;
+  }
+  .address-left{display:flex;gap:6px}
+  .dot{width:12px;height:12px;border-radius:3px;background:#000;display:inline-block}
+  .address-middle{flex:1;color:#111;font-weight:600;font-size:14px}
+  .address-right{width:36px;text-align:center}
+
+  .window-body{display:flex}
+  .left-panel{width:320px;padding:20px;background:var(--accent-2);border-right:6px solid #000}
+  .form-panel{flex:1;padding:36px;background:var(--accent-3)}
+
+  .chat-box{border:6px solid #000;padding:10px;background:#fff}
+  .chat-line{font-weight:700}
+  .chat-line.muted{font-weight:400;color:#333}
+
+  .decor{margin-top:12px}
+  .decor .star{display:inline-block;margin-right:8px;font-size:20px}
+  .decor .plus{display:inline-block;margin-left:6px;font-weight:700}
+
+  .retro-title{margin:0 0 12px 0;font-size:20px}
+  .retro-form{display:block}
+  /* increase spacing so placeholders/inputs feel roomier on desktop and mobile */
+  .field{margin-bottom:20px}
+  .label-text{font-weight:700;margin-bottom:8px;display:block}
+  .field input{
+    width:100%;
+    padding:14px 12px; /* larger tap target */
+    min-height:44px; /* visually bigger input box */
+    border:6px solid #000;
+    background:transparent;
+    font-size:16px;
+    box-sizing:border-box;
+  }
+
+  .actions{display:flex;gap:10px;margin-top:8px}
+  .btn{padding:10px 16px;border:6px solid #000;background:transparent;cursor:pointer;font-weight:700}
+  .btn.primary{background:var(--accent-1)}
+  .btn.ghost{background:transparent}
+
+  .error{color:#b00020;font-weight:700;margin-top:8px}
+
+  /* small screens */
+  @media(max-width:760px){
+    .retro-window{width:95vw}
+    .left-panel{display:none}
+    .form-panel{padding:18px}
+  }

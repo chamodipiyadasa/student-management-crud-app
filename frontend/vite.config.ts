@@ -1,13 +1,12 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 5173,
-  },
-  resolve: {
-    alias: [],
-  },
+// Use a dynamic import for ESM-only plugins to avoid require/ESM interop issues
+export default defineConfig(async () => {
+  const react = (await import('@vitejs/plugin-react')).default
+
+  return {
+    plugins: [react()],
+    server: { port: 5173 },
+    resolve: { alias: [] },
+  }
 })

@@ -123,7 +123,7 @@ h1, h2 {
 .students-page .btn.ghost{background:#f6fbff;border:3px solid #000;color:#0f1724;font-weight:800}
 .students-page .table-section{margin-top:18px}
 .students-page .table-card{background:var(--card-bg);padding:14px;border-radius:0;box-shadow:none;border:3px solid #000}
-/* Ensure table and cells have square corners */
+
 .students-page .students-table,
 .students-page .students-table thead th,
 .students-page .students-table td{border-radius:0}
@@ -140,7 +140,7 @@ h1, h2 {
 .students-page .loading{padding:12px;color:var(--muted)}
 .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-/* Nav logout button styled to match other buttons, using lavender */
+/* Navbar styles */
 nav .btn-logout{background:var(--accent-2);border:3px solid #000;padding:8px 12px;border-radius:0;color:#0f1724;font-weight:700;cursor:pointer;margin-right:8px}
 
 @media(max-width:900px){

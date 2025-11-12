@@ -45,7 +45,8 @@ app.MapPost("/api/students", async (Student student, IStudentService svc) =>
 
 app.MapPut("/api/students/{id:int}", async (int id, Student student, IStudentService svc) =>
 {
-    if (id != student.Id && student.Id != 0) student.Id = id;
+    // Ensure the route id is used as the student's Id
+    student.Id = id;
     var ok = await svc.UpdateAsync(student);
     return ok ? Results.NoContent() : Results.NotFound();
 }).WithName("UpdateStudent");

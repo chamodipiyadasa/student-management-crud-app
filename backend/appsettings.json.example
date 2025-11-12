@@ -1,0 +1,6 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=127.0.0.1,1433;Database=StudentDB;User Id=sa;Password=YOUR_SA_PASSWORD;TrustServerCertificate=True;"
+  },
+  "AllowedHosts": "*"
+}

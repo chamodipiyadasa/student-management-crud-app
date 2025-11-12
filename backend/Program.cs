@@ -18,6 +18,22 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Global exception handler - error handling return JSON
+app.Use(async (ctx, next) =>
+{
+    try
+    {
+        await next();
+    }
+    catch (Exception ex)
+    {
+        ctx.Response.StatusCode = 500;
+        ctx.Response.ContentType = "application/json";
+        var result = new { error = "An unexpected error occurred.", detail = ex.Message };
+        await ctx.Response.WriteAsJsonAsync(result);
+    }
+});
+
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors();
@@ -36,8 +52,9 @@ app.MapGet("/api/students/{id:int}", async (int id, IStudentService svc) =>
 
 app.MapPost("/api/students", async (Student student, IStudentService svc) =>
 {
-    if (string.IsNullOrWhiteSpace(student.FirstName) || string.IsNullOrWhiteSpace(student.LastName))
-        return Results.BadRequest("FirstName and LastName are required.");
+    var errors = ValidateStudent(student, forUpdate: false);
+    if (errors.Count > 0)
+        return Results.BadRequest(new { errors });
 
     var id = await svc.CreateAsync(student);
     return Results.Created($"/api/students/{id}", new { Id = id });
@@ -47,9 +64,52 @@ app.MapPut("/api/students/{id:int}", async (int id, Student student, IStudentSer
 {
     // Ensure the route id is used as the student's Id
     student.Id = id;
+    var errors = ValidateStudent(student, forUpdate: true);
+    if (errors.Count > 0)
+        return Results.BadRequest(new { errors });
+
     var ok = await svc.UpdateAsync(student);
     return ok ? Results.NoContent() : Results.NotFound();
 }).WithName("UpdateStudent");
+
+// Validation helper -error msg
+static Dictionary<string, string[]> ValidateStudent(Backend.Models.Student student, bool forUpdate)
+{
+    var errors = new Dictionary<string, string[]>();
+    var list = new List<string>();
+
+    if (string.IsNullOrWhiteSpace(student.FirstName))
+        list.Add("FirstName is required.");
+    if (string.IsNullOrWhiteSpace(student.LastName))
+        list.Add("LastName is required.");
+
+    if (!string.IsNullOrWhiteSpace(student.Email))
+    {
+        try
+        {
+            var _ = new System.Net.Mail.MailAddress(student.Email);
+        }
+        catch
+        {
+            list.Add("Email is not a valid email address.");
+        }
+    }
+
+    if (student.DateOfBirth.HasValue)
+    {
+        var dob = student.DateOfBirth.Value;
+        if (dob > DateTime.UtcNow)
+            list.Add("DateOfBirth cannot be in the future.");
+        var age = DateTime.UtcNow.Year - dob.Year;
+        if (age > 150)
+            list.Add("DateOfBirth looks invalid.");
+    }
+
+    if (list.Count > 0)
+        errors["validationErrors"] = list.ToArray();
+
+    return errors;
+}
 
 app.MapDelete("/api/students/{id:int}", async (int id, IStudentService svc) =>
 {

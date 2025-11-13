@@ -1,5 +1,6 @@
-// Read base URL from Vite env (VITE_API_BASE_URL). Fall back to localhost:5000
-const API_BASE = (import.meta as any)?.env?.VITE_API_BASE_URL || 'http://localhost:5000'
+// Read base URL from Vite env (VITE_API_BASE_URL). Fall back to localhost:5001 for local dev.
+// Do NOT hardcode a production URL here; set VITE_API_BASE_URL in Vercel when deploying.
+const API_BASE = (import.meta as any)?.env?.VITE_API_BASE_URL || 'http://localhost:5001'
 
 async function request(method: string, path: string, body?: any) {
   const opts: RequestInit = {

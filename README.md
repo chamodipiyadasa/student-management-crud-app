@@ -100,7 +100,7 @@ curl -sS http://localhost:5000/api/students | jq .
   ```bash
   # Student Management App
 
-  Live demo (frontend): https://student-management-crud-app-s21r.vercel.app/
+  Live demo (frontend): [https://student-management-crud-app-s21r.vercel.app/](https://student-management-crud-app-s21r.vercel.app/login)
 
   This repository is a compact full‑stack Student Management demo. Below are concise, actionable instructions to run and verify the app locally, plus deployment notes for Vercel (frontend) and Azure (backend).
 

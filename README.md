@@ -113,8 +113,8 @@ Files/paths of interest
 
 Live links
 - Frontend (Vercel): https://student-management-crud-app.vercel.app/login
-- Backend (Azure App Service): add your deployed backend URL here
-- GitHub repo: add your public repository URL here
+- Backend (Azure App Service): haven't completed yet
+
 
 If you want, I can:
 - add the full list of stored procedure names called by the API to this README

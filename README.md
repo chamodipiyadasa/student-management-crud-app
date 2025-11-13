@@ -112,7 +112,7 @@ Files/paths of interest
 - Frontend code: `/frontend/src` (API helper: `/frontend/src/api`)
 
 Live links
-- Frontend (Vercel): https://student-management-crud-app.vercel.app (if deployed)
+- Frontend (Vercel): https://student-management-crud-app.vercel.app/login
 - Backend (Azure App Service): add your deployed backend URL here
 - GitHub repo: add your public repository URL here
 

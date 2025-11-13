@@ -1,4 +1,4 @@
-const API_BASE = (import.meta as any)?.env?.VITE_API_BASE_URL || 'http://localhost:5000'
+const API_BASE = (import.meta as any)?.env?.VITE_API_BASE_URL || 'http://localhost:5001'
 
 async function request(method: string, path: string, body?: any) {
   const opts: RequestInit = {

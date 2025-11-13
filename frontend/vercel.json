@@ -1,5 +1,10 @@
 {
   "rewrites": [
-    { "source": "^/(.*)$this file is", "destination": "/index.html" }
+    { "source": "^/(.*)$", "destination": "/index.html" }
+  ]
+}
+{
+  "rewrites": [
+    { "source": "^/(.*)$", "destination": "/index.html" }
   ]
 }
